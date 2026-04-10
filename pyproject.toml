@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "datahub-core"
+version = "0.1.0"
+description = "Serving and sync engines for dorma datahub"
+requires-python = ">=3.11"
+dependencies = [
+    "duckdb",
+    "fastapi[standard]",
+    "pandas",
+    "pyarrow",
+    "uvicorn",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+]
+
+[project.scripts]
+datahub-serving = "serving_engine.runner.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["serving_engine*", "sync_engine*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
